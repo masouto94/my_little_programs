@@ -1,6 +1,12 @@
 import sqlite3
 
-db = sqlite3.connect("poems.db")
-cursor = db.cursor()
-cursor.execute
-print(cursor.execute("SELECT name FROM sqlite_master").fetchall())
+class DatabaseConnector():
+    def __init__(self, database) -> None:
+        self.database = sqlite3.connect(database)
+        self.connector = self.database.cursor()
+        self.initial_setup()
+    def initial_setup(self):
+        self.connector.execute("CREATE TABLE IF NOT EXISTS rule(id NUMERIC, name TEXT, parameters TEXT)")
+        return
+
+db = DatabaseConnector('poems.db')
