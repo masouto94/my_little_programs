@@ -1,15 +1,20 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <TestingVue :date="now" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TestingVue from './components/TestingVue.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    TestingVue
+  },
+  data(){
+    return{
+      now: new Date()
+    }
   }
 }
 </script>
