@@ -51,15 +51,10 @@ class PoemParser():
         return all(result)
 
 
-#TODO: ver como hacer que 'Empieza a' sea sinalefa
+#TODO: ver como hacer que 'Empieza a' y la "y" sea sinalefa
 # hernandez="""Empieza a vivir, y empieza
 # a morir de punta a punta
 # levantando la corteza
 # de su madre con la yunta."""
 # hernandez_poem=PoemParser(hernandez)
-# print(hernandez_poem.get_syllable_count_by_strophe())
-# print(hernandez_poem.check_metric())
-
-#par de metrica mas verso
-# print(storni_poem.parsed.get(4).get('syllables')[0],storni_poem.parsed.get(4).get('verses')[0])
 

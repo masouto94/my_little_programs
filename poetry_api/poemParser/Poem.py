@@ -1,35 +1,33 @@
-from typing import Type, List
+from typing import Type
 from abc import ABC, abstractmethod
 from PoemParser import PoemParser 
-import sys
-# tell interpreter where to look
-sys.path.insert(0,"/home/matias/Documents/misRepos/my_little_programs/poetry_api")
-from rules.Rule import *
-from rulesets.Ruleset import *
+from Rule import *
+from Ruleset import *
+from Encoders import *
 
 
-
-class Poetry():
-    def __init__(self, text: str, rules: List[Rule] = None) -> None:
+class Poetry(ABC):
+    def __init__(self, text: str, rules: Type[Ruleset] = None) -> None:
+        self.name = ""
         self.text = PoemParser(text)
+        self.raw_text = self.text.initial
         self.rules = rules
 
     def arrange_verses(self):
-        print(self.text.parsed)
+        print(self.raw_text)
 
 
 class Sonnet(Poetry):
-    def __init__(self, text) -> None:
-        self.name="Sonnet"
+    def __init__(self, text: Type[PoemParser]) -> None:
         super().__init__(text)
-#        self.rules = SonnetRules(11)
+        self.name="Sonnet"
         self.rules = SonnetRules(self.text)
 
 class Free(Poetry):
-    def __init__(self, text, rules=None) -> None:
+    def __init__(self, text: Type[PoemParser]) -> None:
         super().__init__(text)
         self.name="Free poem"
-        self.rules = []
+        self.rules = FreePoemRules(self.text)
 
 class Poem():
     def __init__(self, author, title, body: Type[Poetry]) -> None:
@@ -57,13 +55,14 @@ class Poem():
 
 
 
-from database.to_import import poems_list
+from to_import import poems_list
 todo=[]
 for poem in poems_list:
     try:
         cls = globals()[poem['type']](poem['text'])
         item = Poem(poem['author'], poem['title'], cls)
-        todo.append(item)
+        encoded=PoemEncoder(item)
+        todo.append(encoded.serialize())
     except KeyError:
         print(f"Error processing '{poem['title']}'.Type {poem['type']} is not supported yet")
         continue
@@ -71,6 +70,5 @@ for poem in poems_list:
 
 # todo[1].describe()
 
+print(PoemEncoder(todo[1]).deserialize().parsed)
 
-# print(Hendecasyllable(todo[0].parsed).input)
-print(todo[0].body.rules.params)
