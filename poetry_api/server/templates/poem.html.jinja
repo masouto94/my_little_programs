@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <title>{{poem.title}}</title>
-<h1>{{poem.title}}</h1>
-<h2><i>por {{poem.author}}</i></h2>
+<h2>{{poem.title}}</h2>
+<h3><i>por {{poem.author}}</i></h3>
 {% for strophe in poem.strophes %}
 <div class="strophe">
 <p>{{"<br>".join(strophe)}}</p>
 </div>
 {% endfor %}
+{% if single %}
 <div>
     <a href="/">Back</a>
 </div>
+{% endif %}

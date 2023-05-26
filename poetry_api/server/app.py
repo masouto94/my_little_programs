@@ -22,4 +22,11 @@ def get_poem():
     to_get = allPoems.get(int(request.form['index']))
     if not to_get:
         return render_template('not_found.html')
-    return render_template('poem.html.jinja', poem=to_get)
+    return render_template('poem.html.jinja', poem=to_get, single=True)
+
+@app.route('/poemsByAuthor/',  methods=['POST'])
+def get_poems_by_author():
+    to_get = [poem for poem in allPoems.values() if poem.author == request.form['author']]
+    if not to_get:
+        return render_template('not_found.html')
+    return render_template('poem_container.html.jinja', poems=to_get, author=request.form['author'])
