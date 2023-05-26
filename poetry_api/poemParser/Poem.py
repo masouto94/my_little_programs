@@ -70,5 +70,4 @@ for poem in poems_list:
 
 # todo[1].describe()
 
-print(PoemEncoder(todo[1]).deserialize().parsed)
-
+#print(PoemEncoder(todo[1]).deserialize().parsed)

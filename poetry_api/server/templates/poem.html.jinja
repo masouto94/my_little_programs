@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<title>{{poem.title}}</title>
+<h1>{{poem.title}}</h1>
+<h2><i>por {{poem.author}}</i></h2>
+{% for strophe in poem.strophes %}
+<div class="strophe">
+<p>{{"<br>".join(strophe)}}</p>
+</div>
+{% endfor %}
+<div>
+    <a href="/">Back</a>
+</div>
