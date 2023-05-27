@@ -9,4 +9,4 @@ class DatabaseConnector():
     #     self.connector.execute("CREATE TABLE IF NOT EXISTS rule(id INTEGER PRIMARY KEY, name TEXT, parameters TEXT)")
     #     return
 
-db = DatabaseConnector('poems.db')
+db = DatabaseConnector('poemParser/poems.db')

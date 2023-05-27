@@ -47,11 +47,14 @@ class Poem():
     def parsed(self):
         return self.body.text.parsed
 
+    @property 
+    def type(self):
+        return self.body.name
     def read(self):
         self.body.arrange_verses()
     
     def describe(self):
-        print(f"""The poem '{self.title}' was written by {self.author}. It is a {self.body.name} and it has {len(self.body.text.verses)} verses""")
+        return f"""The poem '{self.title}' was written by {self.author}. It is a {self.type} and it has {len(self.body.text.verses)} verses"""
 
 
 
@@ -69,3 +72,5 @@ for poem in poems_list:
 
 
 
+# print(todo[0].get('poem').get('ruleset').get('rules'))
+# print(type(PoemEncoder(todo[0]).deserialize()))

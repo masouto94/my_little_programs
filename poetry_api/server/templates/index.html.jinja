@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<title>Index Page</title>
+<h1>Poems getter</h1>
+<header>Welcome to our app. We currently have {{current}} poems available!</header>
+<hr>
+<hr>
+<div>
+  <form action="/poem/" method="POST">
+    <div>
+      <h2>Get poem by id</h2>
+      <p>You can get a poem by its number. <b>1</b> will be the first uploaded and <b>{{current}}</b> the last</p>
+      <input type="text" name="index" placeholder="number">
+    </div>
+
+    <div class=" form-group">
+      <button type="submit" style="margin : 20px 20px -10px 0px">Search</button>
+    </div>
+  </form>
+
+  <form action="/poemsByAuthor/" method="POST">
+    <div>
+      <h2>Get poems by author</h2>
+      <p>You can also enter the author name</p>
+      <select name="select_author">
+        {% for author in authors %}
+        <option value="{{author}}">{{author}}</option>
+        {% endfor %}
+      </select>
+      <div class=" form-group">
+        <button type="submit" style="margin : 20px 20px -10px 0px">Search</button>
+      </div>
+    </div>
+  </form>
+
+  <form action="/poemsByType/" method="POST">
+    <div>
+      <h2>Get poems by type</h2>
+      <p>Or by type</p>
+      <select name="select_type">
+        {% for type in types %}
+        <option value="{{type}}">{{type}}</option>
+        {% endfor %}
+      </select>
+      <div class=" form-group">
+        <button type="submit" style="margin : 20px 20px -10px 0px">Search</button>
+      </div>
+    </div>
+  </form>
+</div>

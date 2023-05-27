@@ -193,5 +193,27 @@ Se quedó enredada,
 Entonces, buen hombre,
 Preténdeme blanca,
 Preténdeme nívea,
-Preténdeme casta."""}
+Preténdeme casta."""},
+{
+    "title": "Soneto III",
+    "author": "Octavio Paz",
+    "type": "Sonnet",
+    "text": """Del verdecido júbilo del cielo
+luces recobras que la luna pierde
+porque la luz de sí misma recuerde
+relámpagos y otoños en tu pelo.
+
+El viento bebe viento en su revuelo,
+mueve las hojas y su lluvia verde
+moja tus hombros, tus espaldas muerde
+y te desnuda y quema y vuelve yelo.
+
+Dos barcos de velamen desplegado
+tus dos pechos. Tu espalda es un torrente.
+Tu vientre es un jardín petrificado.
+
+Es otoño en tu nuca: sol y bruma.
+Bajo del verde cielo adolescente,
+tu cuerpo da su enamorada suma."""
+}
 ]

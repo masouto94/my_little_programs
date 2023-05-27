@@ -39,8 +39,8 @@ class RulesetEncoder(Encoder):
     def serialize(self):
         if not self.encoded:
             serialized={
-                "name": self.original.name,
-                "rules": [rule.name for rule in self.original.params],
+                "name": self.original.rules.name,
+                "rules": [rule.name for rule in self.original.rules.params],
                 "object": jsonpickle.encode(self.original)
                 }
             self.encoded = serialized
@@ -57,6 +57,7 @@ class PoetryEncoder(Encoder):
         if not self.encoded:
             serialized={
                 "name": self.original.name,
+                "ruleset": RulesetEncoder(self.original).serialize(),
                 "object": jsonpickle.encode(self.original)
                 }
             self.encoded = serialized
@@ -68,13 +69,13 @@ class PoetryEncoder(Encoder):
 class PoemEncoder(Encoder):
     def __init__(self, original) -> None:
         super().__init__(original)
-    
+
     def serialize(self):
         if not self.encoded:
             serialized = {
                 "author": self.original.author,
                 "title": self.original.title,
-                "type": self.original.body.name,
+                "poem": PoetryEncoder(self.original.body).serialize(),
                 "object": jsonpickle.encode(self.original)
             }
             self.encoded = serialized
