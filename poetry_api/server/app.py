@@ -34,17 +34,17 @@ def get_poem():
 @app.route('/poemsByAuthor/',  methods=['POST'])
 def get_poems_by_author():
     selected = request.form.get('select_author')
-    to_get = [poem for poem in allPoems.values() if poem.author == selected]
+    to_get = {i:poem for i,poem in allPoems.items() if poem.author == selected}
     
     if not to_get:
         return render_template('not_found.html.jinja')
-    return render_template('poem_container.html.jinja', poems=to_get, author=selected)
+    return render_template('poem_container.html.jinja', poems=to_get.items(), author=selected)
 
 @app.route('/poemsByType/',  methods=['POST'])
 def get_poems_by_type():
     selected = request.form.get('select_type')
-    to_get = [poem for poem in allPoems.values() if poem.type == selected]
+    to_get = {i:poem for i,poem in allPoems.items() if poem.type == selected}
     
     if not to_get:
         return render_template('not_found.html.jinja')
-    return render_template('poem_container.html.jinja', poems=to_get, type=selected)
+    return render_template('poem_container.html.jinja', poems=to_get.items(), type=selected)

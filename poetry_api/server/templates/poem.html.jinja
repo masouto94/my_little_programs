@@ -1,18 +1,29 @@
 <!DOCTYPE html>
-<title>{{poem.title}}</title>
-<h2>{{poem.title}}</h2>
-<h3><i>por {{poem.author}}</i></h3>
-{% for strophe in poem.strophes %}
-<div class="strophe">
-<p>{{"<br>".join(strophe)}}</p>
-</div>
-{% endfor %}
-<hr>
-<div>
-    <p>{{poem.describe()}}</p>
-</div>
-{% if single %}
-<div>
-    <a href="/">Back</a>
-</div>
-{% endif %}
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main_styles.css') }}">
+</head>
+
+<body class="first-color">
+    <title>{{poem.title}}</title>
+    <div class="poem">
+        <h2>{{poem.title}}</h2>
+        <h3><i>by {{poem.author}}</i></h3>
+        {% for strophe in poem.strophes %}
+        <div class="strophe">
+            <p>{{"<br>".join(strophe)}}</p>
+        </div>
+        {% endfor %}
+    </div>
+    <hr>
+    <div id="description_{{i}}" class="poemDescription">
+        <button id="toggler_{{i}}" class="button">Show description</button>
+        <p style="visibility: hidden">{{poem.describe()}}</p>
+    </div>
+    {% if single %}
+    <div>
+        <a href="/">Back</a>
+    </div>
+    {% endif %}
+</body>
+<script src="{{ url_for('static', filename='toggler.js') }}"></script>
