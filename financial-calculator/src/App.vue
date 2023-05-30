@@ -1,19 +1,19 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <TestingVue :date="now" />
+  <CalculatorInput />
 </template>
 
 <script>
-import TestingVue from './components/TestingVue.vue'
+import CalculatorInput from './components/CalculatorInput.vue'
 
 export default {
   name: 'App',
   components: {
-    TestingVue
+    CalculatorInput
   },
   data(){
     return{
-      now: new Date()
+      
     }
   }
 }
