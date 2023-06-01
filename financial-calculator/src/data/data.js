@@ -75,4 +75,5 @@ export const inflationSeries = [
 {year:2023,month:2,amount:6.6},
 {year:2023,month:3,amount:7.7},
 {year:2023,month:4,amount:8.4}
-]
+].map((item,index) => ({ ...item, index }))
+
