@@ -1,16 +1,17 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <BasicHeader />
   <CalculatorInput />
 </template>
 
 <script>
 import CalculatorInput from './components/CalculatorInput.vue'
-
+import BasicHeader from './components/BasicHeader.vue';
 export default {
   name: 'App',
   components: {
-    CalculatorInput
-  },
+    CalculatorInput,
+    BasicHeader
+},
   data(){
     return{
       

@@ -1,12 +1,11 @@
 <template>
-        <h1>HOLA</h1>
         <div id="formContainer">
             <form action="">
                 <input type="month" name="month" id="monthPicker" :min="minDate" :max="maxDate" v-model="selected" v-on:change="handleClear">
                 <input type="button" value="search" v-on:click="show">
             </form>
             <div id="inflationContainer">
-                Inflación del mes
+                {{ $t("body.calculatorLegend") }}
                 <span v-if="this.selected">{{percInflation}}</span>
             </div>
         </div>
@@ -90,8 +89,9 @@ h1 {
 }
 #inflationContainer{
     display: grid;
-    flex-direction: column;
     grid-template-columns: 1fr 1fr;
+    max-width: 20%;
+    align-items: center;
 
 }
 </style>
