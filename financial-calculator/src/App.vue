@@ -1,16 +1,17 @@
 <template>
   <BasicHeader />
-  <CalculatorInput />
+  <TogglerContainer/>
 </template>
 
 <script>
-import CalculatorInput from './components/CalculatorInput.vue'
 import BasicHeader from './components/BasicHeader.vue';
+import TogglerContainer from './components/TogglerContainer.vue';
+
 export default {
   name: 'App',
   components: {
-    CalculatorInput,
-    BasicHeader
+    BasicHeader,
+    TogglerContainer
 },
   data(){
     return{
