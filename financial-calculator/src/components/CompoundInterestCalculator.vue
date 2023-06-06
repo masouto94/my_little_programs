@@ -20,10 +20,10 @@ export default {
     name: 'CompoundInterestCalculator',
     data() {
         return {
-            amount:100,
-            interest:10,
-            from: '2022-05-01',
-            to: '2022-06-01',
+            amount: undefined,
+            interest: undefined,
+            from: undefined,
+            to: undefined,
             accumulated: undefined
         }
     },

@@ -19,11 +19,10 @@ export const calculateCompuondInterest = (amount, interest, from,to) => {
     for (let i = 0; i < diffInDays; i++) {
         if(initial){
             initial=false
-            console.log(amount)
+            i++
             continue
         }
         amount *=  (1 + dailyInterest / 100 ).toFixed(4)
-        console.log(amount,i)
     }
     return amount.toFixed(4)
 }
