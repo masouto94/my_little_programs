@@ -53,3 +53,9 @@ class DatabaseConnector():
         self._commit_if_success(
             self.cursor.execute(f"DELETE FROM pairings WHERE folder=? AND extension in ({self._replace_placeholders(values)})", (name, *values))
         )
+
+    def delete_key(self, name: str):
+        print(f"Deleting key {name}")
+        self._commit_if_success(
+            self.cursor.execute(f"DELETE FROM pairings WHERE folder=?", (name,))
+        )
