@@ -5,10 +5,14 @@ import tkinter.ttk as ttk
 
 class InterfaceParser():
     def __init__(self, db:Type[DatabaseConnector]) -> None:
+        self._window =  tk.Tk()
         self._pairing = {}
         self._to_delete = {}
         self.db =db
 
+    @property
+    def window(self):
+        return self._window
     @property
     def pairing(self):
         return self._pairing
@@ -56,14 +60,19 @@ class InterfaceParser():
         self.deletion_key.delete(0,'end')
         self.deletion_value.delete(0,'end')
 
+    def handle_exit(self,event):
+        self.window.quit()
+
     def launch(self):
-        window = tk.Tk()
-        window.title("Customize routes")
-        self._addition_widgets(window)
-        self._deletion_widgets(window)
+        self.window.title("Customize routes")
+        self._addition_widgets(self.window)
+        self._deletion_widgets(self.window)
         self.result = tk.Label()
         self.result.grid(columnspan=3, row=6)
-        window.mainloop()
+        exit_button = tk.Button(self.window, text="Finish")
+        exit_button.bind("<Button-1>", self.handle_exit)
+        exit_button.grid(columnspan=3, row=7)
+        self.window.mainloop()
     
     def _addition_widgets(self, window):
         tk.Label(window, text="New values input").grid(columnspan=3,row=0)
