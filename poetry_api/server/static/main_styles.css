@@ -1,0 +1,78 @@
+.first-color { 
+	background: #f5eee6; 
+}
+	
+.second-color { 
+	background: #f3d7ca; 
+}
+
+.third-color { 
+	background: #e6a4b4; 
+}
+
+.fourth-color { 
+	background: #c86b85;
+}
+.background{
+    background: linear-gradient(to bottom right, #F7CAC9, #92A8D1);
+    height: 100vh;
+
+}
+.titles,header{
+    font-family:'Courier New', Courier, monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.formContainer{
+    font-family:'Courier New', Courier, monospace;
+    width: 25vw;
+}
+
+.formContainer p{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.button{
+    background-color: #c86b85;
+    color: white;
+    border-radius: 25%;
+    padding: 5px 10px;
+    margin : 20px 20px 10px 0px
+
+}
+.searchBar{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-end;
+}
+select, input{
+    padding: 5px 10px;
+    border-radius: 50% 0 0 50%;
+    text-align: right;
+    min-width: 50%;
+    max-width: 50%;
+
+}
+
+.poem{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.poemDescription{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
