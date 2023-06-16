@@ -1,16 +1,18 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <CalculatorInput />
+  <BasicHeader />
+  <TogglerContainer/>
 </template>
 
 <script>
-import CalculatorInput from './components/CalculatorInput.vue'
+import BasicHeader from './components/BasicHeader.vue';
+import TogglerContainer from './components/TogglerContainer.vue';
 
 export default {
   name: 'App',
   components: {
-    CalculatorInput
-  },
+    BasicHeader,
+    TogglerContainer
+},
   data(){
     return{
       
@@ -19,6 +21,7 @@ export default {
 }
 </script>
 
+<style src="./utils/colors.css"></style>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
