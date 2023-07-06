@@ -30,7 +30,8 @@ export default {
             amount: undefined,
             interest: undefined,
             repetitions: undefined,
-            accumulated: undefined
+            accumulated: undefined,
+            span: this.$t('selector.yearly')
         }
     },
     methods: {
@@ -49,11 +50,6 @@ export default {
         }
     },
     computed: {
-        span: {
-            get: function(){
-                return this.$t('selector.yearly')
-            }
-        },
         interval:{
             get: function(){
                 switch (this.span) {
