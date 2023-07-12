@@ -7,6 +7,9 @@ con = DatabaseConnector('./database/pairing.db')
 args = get_parser().parse_args()
 if args.customize:
     collector = InterfaceParser(con)
-    collector.launch()  
-data = parse_data(con.select("Select folder, extension from pairings"))
-pair_files_by_type(args.filesDir,data)
+    collector.launch()
+
+if args.filesDir:
+    data = parse_data(con.select("Select folder, extension from pairings"))
+    pair_files_by_type(args.filesDir,data)
+

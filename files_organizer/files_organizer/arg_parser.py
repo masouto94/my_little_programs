@@ -7,14 +7,12 @@ def get_parser() -> ArgumentParser:
         "--filesDir",
         action="store",
         type=str,
-        help="Path to the directory to sort",
-        required=True
+        help="Path to the directory to sort"
     )
     parser.add_argument(
         "--customize",
         action="store_true",
-        help="Path to the directory to sort",
-        required=False
+        help="Path to the directory to sort"
     )
 
     return parser
