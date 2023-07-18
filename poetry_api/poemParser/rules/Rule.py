@@ -1,7 +1,7 @@
 from typing import Type, List
 from abc import ABC, abstractmethod
 
-from PoemParser import PoemParser 
+from parsers.PoemParser import PoemParser 
 
 class Rule(ABC):
     def __init__(self, input: Type[PoemParser], params = None) -> None:

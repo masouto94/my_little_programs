@@ -1,9 +1,9 @@
 from typing import Type
 from abc import ABC, abstractmethod
-from PoemParser import PoemParser 
-from Rule import *
-from Ruleset import *
-from Encoders import *
+from parsers.PoemParser import PoemParser 
+from rules.Rule import *
+from rulesets.Ruleset import *
+from encoders.Encoders import *
 
 
 class Poetry(ABC):

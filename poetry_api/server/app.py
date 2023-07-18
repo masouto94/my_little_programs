@@ -2,10 +2,9 @@ import os
 import sys
 fpath = os.path.join(os.path.dirname(os.getcwd()), 'poemParser')
 sys.path.append(fpath)
-print(sys.path)
 from flask import Flask, render_template,request
-from Encoders import PoemEncoder
-from Poem import todo
+from poemParser.encoders.Encoders import PoemEncoder
+from poemParser.Poem import todo
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
