@@ -72,5 +72,10 @@ for poem in poems_list:
 
 
 
-# print(todo[0].get('poem').get('ruleset').get('rules'))
+# rules = todo[0].get('poem').get('ruleset').get('rules')
+# print(rules)
+# for rule in rules:
+#     print(RuleEncoder(RuleEncoder(rule).serialize()).deserialize())
 # print(type(PoemEncoder(todo[0]).deserialize()))
+# Se agarra el objeto serializado (dict) y al deserializarlo se recupera el objeto con su clase 
+# print(RulesetEncoder(todo[0].get('poem').get('ruleset')).deserialize())

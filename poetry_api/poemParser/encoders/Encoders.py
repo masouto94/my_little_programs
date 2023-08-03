@@ -40,7 +40,7 @@ class RulesetEncoder(Encoder):
         if not self.encoded:
             serialized={
                 "name": self.original.rules.name,
-                "rules": [rule.name for rule in self.original.rules.params],
+                "rules": [rule for rule in self.original.rules.params],
                 "object": jsonpickle.encode(self.original)
                 }
             self.encoded = serialized
@@ -50,6 +50,7 @@ class RulesetEncoder(Encoder):
         return super().deserialize()
 
 class PoetryEncoder(Encoder):
+    #Pensar si esto tiene sentido que siga
     def __init__(self, original) -> None:
         super().__init__(original)
 
@@ -72,10 +73,17 @@ class PoemEncoder(Encoder):
 
     def serialize(self):
         if not self.encoded:
+            #poem no deberia estar. Tendria que ser directamente el object para no armar una cadena
+            #interminable
+            # serialized = {
+            #     "author": self.original.author,
+            #     "title": self.original.title,
+            #     "poem": PoetryEncoder(self.original.body).serialize(),
+            #     "object": jsonpickle.encode(self.original)
+            # }
             serialized = {
                 "author": self.original.author,
                 "title": self.original.title,
-                "poem": PoetryEncoder(self.original.body).serialize(),
                 "object": jsonpickle.encode(self.original)
             }
             self.encoded = serialized
