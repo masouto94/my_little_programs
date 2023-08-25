@@ -4,13 +4,16 @@ fpath = os.path.join(os.path.dirname(os.getcwd()), 'poemParser')
 sys.path.append(fpath)
 from flask import Flask, render_template,request
 from poemParser.encoders.Encoders import PoemEncoder
-from poemParser.Poem import todo
+from poemParser.database.DatabaseConnector import DatabaseConnector
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
+db = DatabaseConnector('../poemParser/database/poems.db')
+poems = db.select('select object from poems')
+allPoems = {}
 
-
-allPoems = {idx: PoemEncoder(poem).deserialize()  for idx,poem in enumerate(todo)}
+for idx,poem in enumerate(db.select('select object from poems')):
+    allPoems[idx] = PoemEncoder.deserialize_object( poem[0])
 
 @app.route('/')
 def index():
