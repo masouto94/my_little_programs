@@ -1,3 +1,5 @@
+from typing import Callable
+from encoders.Encoders import PoemEncoder 
 import sqlite3
 
 class DatabaseConnector():
@@ -7,6 +9,18 @@ class DatabaseConnector():
         self.cursor = self.connection.cursor()
         self.initial_setup()
    
+    def _commit_if_success(func: Callable) -> Callable:
+            def container(*args):
+                try:
+                    self = args[0]
+                    rows = func(*args)
+                    self.connection.commit()
+                    print(f"{rows} rows affected")
+                    return rows
+                except sqlite3.Error as e:
+                    print(f"{e}")
+            return container
+
     def initial_setup(self):
         self.cursor.execute("CREATE TABLE IF NOT EXISTS poems(id INTEGER PRIMARY KEY, title VARCHAR, author VARCHAR, object VARCHAR);")
         self.connection.commit()
@@ -15,9 +29,44 @@ class DatabaseConnector():
     def select(self, query: str):
        return self.cursor.execute(query).fetchall()
     
+    def poem_exists(self, title:str,author:str) -> bool:
+        if self.cursor.execute('select title,author from poems where title=? and author=?',(title,author)).fetchall():
+            return True
+        return False
+    
     def show_tables(self):
         return self.cursor.execute("SELECT name FROM sqlite_master WHERE type ='table' AND name NOT LIKE 'sqlite_%'").fetchall()
+    
+    @_commit_if_success
+    def save_poem(self, poem:PoemEncoder) -> int:
+        serialized = poem.serialize()
+        print(f"Saving poem {serialized.get('title')}")
+        return self.cursor.execute(f"INSERT INTO poems(title,author,object) VALUES(?,?,?)", (serialized.get('title'),serialized.get('author'),serialized.get('object'))).rowcount
 
-db = DatabaseConnector('poemParser/database/poems.db')
+#     @_commit_if_success
+#     def new_pairing_batch(self, name: str, values: List[str]):
+#         data = [(name, value) for value in values]
+#         print(f"Saving new pairings for {name} with {len(data)} elements")
+#         return self.cursor.executemany(f"INSERT INTO pairings(folder,extension) VALUES(?,?)", data).rowcount
+    
+#     @_commit_if_success
+#     def delete_pairing(self, name: str, value: str):
+#         print(f"Deleting pairing {name} - {value}")
+#         return self.cursor.execute(f"DELETE FROM pairings WHERE folder=? AND extension=?", (name,value)).rowcount
 
-print(db.show_tables())
+#     @_commit_if_success
+#     def delete_pairing_batch(self, name: str, values: List[str]):
+#         print(f"Deleting pairings for {name} with {len(values)} elements")
+#         return self.cursor.execute(f"DELETE FROM pairings WHERE folder=? AND extension in ({self._replace_placeholders(values)})", (name, *values)).rowcount
+
+#     @_commit_if_success
+#     def delete_key(self, name: str):
+#         print(f"Deleting key {name}")
+#         return self.cursor.execute(f"DELETE FROM pairings WHERE folder=?", (name,)).rowcount
+    
+#     @_commit_if_success
+#     def modify_key(self, name: str, new_name: str):
+#         print(f"Modifying key {name} to {new_name}")
+#         return self.cursor.execute(f"UPDATE pairings SET folder = ? WHERE folder = ?;", (new_name,name)).rowcount
+
+

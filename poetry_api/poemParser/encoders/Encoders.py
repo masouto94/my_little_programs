@@ -6,6 +6,7 @@ class Encoder(ABC):
     def __init__(self, original) -> None:
         self.original = original
         self.encoded = None
+
     @abstractmethod
     def serialize(self):
         pass
@@ -14,6 +15,9 @@ class Encoder(ABC):
     def deserialize(self):
         return jsonpickle.decode(self.original.get("object"))
 
+    @staticmethod
+    def deserialize_object(object):
+        return jsonpickle.decode(object)
 
 class RuleEncoder(Encoder):
     def __init__(self, original) -> None:
