@@ -1,9 +1,11 @@
 from typing import Type
 from abc import ABC, abstractmethod
-from PoemParser import PoemParser 
-from Rule import *
-from Ruleset import *
-from Encoders import *
+from parsers.PoemParser import PoemParser 
+from rules.Rule import *
+from rulesets.Ruleset import *
+from encoders.Encoders import *
+from database.DatabaseConnector import *
+db = DatabaseConnector('poemParser/database/poems.db')
 
 
 class Poetry(ABC):
@@ -59,18 +61,26 @@ class Poem():
 
 
 from to_import import poems_list
-todo=[]
 for poem in poems_list:
     try:
-        cls = globals()[poem['type']](poem['text'])
-        item = Poem(poem['author'], poem['title'], cls)
-        encoded=PoemEncoder(item)
-        todo.append(encoded.serialize())
+        if not db.poem_exists(poem['title'], poem['author']):
+            cls = globals()[poem['type']](poem['text'])
+            item = Poem(poem['author'], poem['title'], cls)
+            encoded=PoemEncoder(item)
+            db.save_poem(encoded)
+        else:
+            print(f"Poem {poem['title']} from {poem['author']} already exists")
+
     except KeyError:
         print(f"Error processing '{poem['title']}'.Type {poem['type']} is not supported yet")
         continue
 
+allPoems = {}
+for idx,poem in enumerate(db.select('select object from poems')):
+    allPoems[idx] = PoemEncoder.deserialize_object( poem[0])
 
+for a in allPoems.values():
+    print(a.author)
 
-# print(todo[0].get('poem').get('ruleset').get('rules'))
-# print(type(PoemEncoder(todo[0]).deserialize()))
+unique_authors = list(set([p.author for p in allPoems.values()]))
+print(unique_authors)

@@ -1,7 +1,7 @@
 from typing import Type, List
 from abc import ABC, abstractmethod
-from PoemParser import PoemParser
-from Rule import  *
+from parsers.PoemParser import PoemParser
+from rules.Rule import  *
 
 
 class Ruleset(ABC):
