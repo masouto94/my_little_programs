@@ -77,8 +77,7 @@ class PoemEncoder(Encoder):
 
     def serialize(self):
         if not self.encoded:
-            #poem no deberia estar. Tendria que ser directamente el object para no armar una cadena
-            #interminable
+            #Lamentablemente hay que armar una cadena interminable
             # serialized = {
             #     "author": self.original.author,
             #     "title": self.original.title,
