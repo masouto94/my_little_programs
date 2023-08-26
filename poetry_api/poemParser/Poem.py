@@ -5,7 +5,7 @@ from rules.Rule import *
 from rulesets.Ruleset import *
 from encoders.Encoders import *
 from database.DatabaseConnector import *
-db = DatabaseConnector('poemParser/database/poems.db')
+# db = DatabaseConnector('poemParser/database/poems.db')
 
 
 class Poetry(ABC):
@@ -28,7 +28,7 @@ class Sonnet(Poetry):
 class Free(Poetry):
     def __init__(self, text: Type[PoemParser]) -> None:
         super().__init__(text)
-        self.name="Free poem"
+        self.name="Free"
         self.rules = FreePoemRules(self.text)
 
 class Poem():
@@ -75,12 +75,12 @@ for poem in poems_list:
         print(f"Error processing '{poem['title']}'.Type {poem['type']} is not supported yet")
         continue
 
-allPoems = {}
-for idx,poem in enumerate(db.select('select object from poems')):
-    allPoems[idx] = PoemEncoder.deserialize_object( poem[0])
+# allPoems = {}
+# for idx,poem in enumerate(db.select('select object from poems')):
+#     allPoems[idx] = PoemEncoder.deserialize_object( poem[0])
 
-for a in allPoems.values():
-    print(a.author)
+# for a in allPoems.values():
+#     print(a.author)
 
-unique_authors = list(set([p.author for p in allPoems.values()]))
-print(unique_authors)
+# unique_authors = list(set([p.author for p in allPoems.values()]))
+# print(unique_authors)

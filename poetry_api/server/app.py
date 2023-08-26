@@ -3,17 +3,25 @@ import sys
 fpath = os.path.join(os.path.dirname(os.getcwd()), 'poemParser')
 sys.path.append(fpath)
 from flask import Flask, render_template,request
+from poemParser.Poem import *
+from poemParser.parsers.PoemParser import PoemParser
 from poemParser.encoders.Encoders import PoemEncoder
 from poemParser.database.DatabaseConnector import DatabaseConnector
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 db = DatabaseConnector('../poemParser/database/poems.db')
-poems = db.select('select object from poems')
+poems = db.select('select author,title,object from poems')
 allPoems = {}
 
-for idx,poem in enumerate(db.select('select object from poems')):
-    allPoems[idx] = PoemEncoder.deserialize_object( poem[0])
+for idx,poem in enumerate(poems):
+    des = PoemEncoder.deserialize_object( poem[2])
+    name=des.get('body').get('name')
+    if name == 'Free poem':
+        name = 'Free'
+    cls = globals()[name] 
+    ttt=cls(des.get('body').get('text').get('initial'))
+    allPoems[idx] = Poem(poem[0],poem[1],ttt)
 
 @app.route('/')
 def index():
