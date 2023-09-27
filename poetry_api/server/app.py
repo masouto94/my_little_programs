@@ -11,29 +11,9 @@ app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 db = DatabaseConnector('../poemParser/database/poems.db')
+
 poems = db.select('select author,title,object from poems')
-
-def rebuild_poems(poems:List[tuple]) -> Dict[int, Poem]:
-    """Returns a dict of `Poem` objects indexed by enumeration from a query of object`
-
-    Args:
-        poems (List[tuple]): Query result
-
-    Returns:
-        Dict[int, Poem]: Dict of poems
-    """
-    _allPoems = {}
-    for idx,_poem in enumerate(poems):
-        try:
-            author,title,poem_object = _poem
-            deserialized = PoemEncoder.deserialize_object( poem_object)
-            _allPoems[idx] = deserialized
-        except:
-            print(f"Failed to load poem {title} from {author}")
-    return _allPoems
 allPoems = rebuild_poems(poems)
-print(allPoems[0])
-
 
 @app.route('/')
 def index():

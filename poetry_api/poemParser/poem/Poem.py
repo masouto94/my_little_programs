@@ -71,38 +71,21 @@ class Poem():
 
 
 
-# def rebuild_poems(poems:List[tuple]) -> Dict[int, Poem]:
-#     """Returns a dict of `Poem` objects indexed by enumeration from a query of `author, title, object`
+def rebuild_poems(poems:List[tuple]) -> Dict[int, Poem]:
+    """Returns a dict of `Poem` objects indexed by enumeration from a query of object`
 
-#     Args:
-#         poems (List[tuple]): Query result
+    Args:
+        poems (List[tuple]): Query result
 
-#     Returns:
-#         Dict[int, Poem]: Dict of poems
-#     """
-#     allPoems = {}
-#     for idx,poem in enumerate(poems):
-#         author,title,poem_object = poem
-#         print(author,title,poem_object)
-#         deserialized = PoemEncoder.deserialize_object( poem_object)
-#         # name=deserialized['body']['name']
-#         name=deserialized.body.name
-#         if name == 'Free poem':
-#             name = 'Free'
-#         cls = globals()[name] 
-#         # poem_data=cls(deserialized['body']['raw_text'])
-#         poem_data=cls(deserialized.body.raw_text)
-#         allPoems[idx] = Poem(author,title,poem_data)
-#     return allPoems
-
-#     # allPoems = {}
-#     # for idx,poem in enumerate(poems):
-#     #     author,title,poem_object = poem
-#     #     deserialized = PoemEncoder.deserialize_object( poem_object)
-#     #     name=deserialized.get('body').get('name')
-#     #     if name == 'Free poem':
-#     #         name = 'Free'
-#     #     cls = globals()[name] 
-#     #     poem_data=cls(deserialized.get('body').get('raw_text'))
-#     #     allPoems[idx] = Poem(author,title,poem_data)
-#     # return allPoems
+    Returns:
+        Dict[int, Poem]: Dict of poems
+    """
+    _allPoems = {}
+    for idx,_poem in enumerate(poems):
+        try:
+            author,title,poem_object = _poem
+            deserialized = PoemEncoder.deserialize_object( poem_object)
+            _allPoems[idx] = deserialized
+        except:
+            print(f"Failed to load poem {title} from {author}")
+    return _allPoems

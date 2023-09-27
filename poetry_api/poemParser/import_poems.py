@@ -1,4 +1,7 @@
 
+#Uncomment and run this to import poems to db
+
+
 # from database.DatabaseConnector import DatabaseConnector
 # from poem.Poem import *
 
