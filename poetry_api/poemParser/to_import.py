@@ -1,3 +1,7 @@
+
+# from database.DatabaseConnector import DatabaseConnector
+# from poem.Poem import *
+
 # poems_list=[
 #     {
 #         "title": "Soneto gongorino en el que el poeta manda a su amor una paloma",
@@ -215,8 +219,29 @@
 # Es otoño en tu nuca: sol y bruma.
 # Bajo del verde cielo adolescente,
 # tu cuerpo da su enamorada suma."""
-# }
-# ]
+# },
+# {
+#         "title": "Llagas de amor",
+#         "author":"Federico García Lorca",
+#         "type": "Sonnet",
+#         "text": """Esta luz, este fuego que devora.
+# Este paisaje gris que me rodea.
+# Este dolor por una sola idea.
+# Esta angustia de cielo, mundo y hora.
 
+# Este llanto de sangre que decora
+# lira sin pulso ya, lúbrica tea.
+# Este peso del mar que me golpea.
+# Este alacrán que por mi pecho mora.
 
-poems_list=[]
+# Son guirnaldas de amor, cama de herido,
+# donde sin sueño, sueño tu presencia
+# entre las ruinas de mi pecho hundido.
+
+# Y aunque busco la cumbre de prudencia
+# me da tu corazón valle tendido
+# con cicuta y pasión de amarga ciencia."""
+# }]
+
+# db = DatabaseConnector('poemParser/database/poems.db')
+# db.import_poems(poems_list)

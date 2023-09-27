@@ -26,4 +26,7 @@
     </div>
     {% endif %}
 </body>
-<script src="{{ url_for('static', filename='toggler.js') }}"></script>
+{% if single %}
+    <script src="{{ url_for('static', filename='toggler.js') }}"></script>
+{% endif %}
+

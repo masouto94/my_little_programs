@@ -1,5 +1,6 @@
 from typing import Callable
 from encoders.Encoders import PoemEncoder 
+from poem.Poem import *
 import sqlite3
 
 class DatabaseConnector():
@@ -37,6 +38,20 @@ class DatabaseConnector():
     def show_tables(self):
         return self.cursor.execute("SELECT name FROM sqlite_master WHERE type ='table' AND name NOT LIKE 'sqlite_%'").fetchall()
     
+    def import_poems(self, poems_list: list) -> None:
+        for poem in poems_list:
+            try:
+                if not self.poem_exists(poem['title'], poem['author']):
+                    item = Poem.from_json(poem)
+                    encoded=PoemEncoder(item)
+                    self.save_poem(encoded)
+                else:
+                    print(f"Poem {poem['title']} from {poem['author']} already exists")
+
+            except KeyError as error:
+                print(error)
+                continue
+
     @_commit_if_success
     def save_poem(self, poem:PoemEncoder) -> int:
         serialized = poem.serialize()
