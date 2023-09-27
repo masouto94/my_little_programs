@@ -111,7 +111,7 @@ class HaikuStructure(Rule):
     def __init__(self, input: Type[PoemParser]) -> None:
         super().__init__(input)
         params = [
-            self.haiku_verse_length(),
+            self.haiku_verse_length()
             
         ]
         self.params = params

@@ -10,15 +10,11 @@
   <div class="mainContainer">
 
     <div class="formContainer">
-      <form action="/poem/" method="POST">
+      <form action="/randomPoem/" method="GET">
         <div>
-          <h2>Get poem by id</h2>
-          <p>You can get a poem by its number. <b>1</b> will be the first uploaded and <b>{{current}}</b> the last</p>
-          <div class="searchBar">
-
-            <input class="second-color" type="text" name="index" placeholder="number">
-            <button class="button" type="submit">Search</button>
-          </div>
+          <h2>Get random poem
+            <button class="button" type="submit">Search</button> 
+          </h2>
         </div>
       </form>
     </div>

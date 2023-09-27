@@ -2,8 +2,8 @@
 #Uncomment and run this to import poems to db
 
 
-from database.DatabaseConnector import DatabaseConnector
-from poem.Poem import *
+# from database.DatabaseConnector import DatabaseConnector
+# from poem.Poem import *
 
 # poems_list=[
 #     {
@@ -254,15 +254,7 @@ from poem.Poem import *
 # dolor humano."""
 # }]
 
-poems_list=[{
-    "title": "Metamorfosis",
-    "author": "Álvaro Yunque",
-    "type": "Haiku",
-    "text": """Naces gusano,
-y te angeliza el arte,
-dolor humano."""
-}]
 
-db = DatabaseConnector('poemParser/database/poems.db')
-db.import_poems(poems_list)
+# db = DatabaseConnector('poemParser/database/poems.db')
+# db.import_poems(poems_list)
 

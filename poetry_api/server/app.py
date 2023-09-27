@@ -3,6 +3,7 @@ import sys
 fpath = os.path.join(os.path.dirname(os.getcwd()), 'poemParser')
 sys.path.append(fpath)
 from flask import Flask, render_template,request
+import random
 from poemParser.poem.Poem import *
 from poemParser.parsers.PoemParser import PoemParser
 from poemParser.encoders.Encoders import PoemEncoder
@@ -26,12 +27,19 @@ def index():
                             authors=unique_authors,
                             types=unique_types)
 
-@app.route('/poem/',  methods=['POST'])
-def get_poem():
-    to_get = allPoems.get(int(request.form['index'])-1)
+@app.route('/poem/<int:id>',  methods=['GET'])
+def get_poem(id):
+    to_get = allPoems.get(id)
     if not to_get:
         return render_template('not_found.html.jinja')
     return render_template('poem.html.jinja', poem=to_get, single=True)
+
+@app.route('/randomPoem/',  methods=['GET'])
+def get_random_poem():
+    poems_amount = len(allPoems.keys()) - 1
+    rand = random.choice(range(poems_amount))
+    
+    return render_template('poem.html.jinja', poem=allPoems.get(rand), single=True)
 
 @app.route('/poemsByAuthor/',  methods=['POST'])
 def get_poems_by_author():
@@ -49,4 +57,4 @@ def get_poems_by_type():
     
     if not to_get:
         return render_template('not_found.html.jinja')
-    return render_template('poem_container.html.jinja', poems=to_get.items(), type=selected)
+    return render_template('poem_container.html.jinja', poems=to_get.items(), author=selected)
