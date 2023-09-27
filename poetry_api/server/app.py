@@ -36,7 +36,7 @@ def get_poem(id):
 
 @app.route('/randomPoem/',  methods=['GET'])
 def get_random_poem():
-    poems_amount = len(allPoems.keys()) - 1
+    poems_amount = len(allPoems.keys())
     rand = random.choice(range(poems_amount))
     
     return render_template('poem.html.jinja', poem=allPoems.get(rand), single=True)
