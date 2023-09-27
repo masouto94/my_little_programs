@@ -26,7 +26,7 @@ class Free(Rule):
         return True
     def check(self):
         super().check()
-
+        
 class Octosyllable(Rule):
     def __init__(self, input: Type[PoemParser]) -> None:
         super().__init__(input)
@@ -92,7 +92,7 @@ class SonnetStructure(Rule):
         return super().check()
 
 class TotalVerses(Rule):
-    def __init__(self, input: Type[PoemParser], amount) -> None:
+    def __init__(self, input: Type[PoemParser], amount:int ) -> None:
         super().__init__(input)
         self.amount = amount
         params = [
@@ -103,5 +103,24 @@ class TotalVerses(Rule):
     def count_verses(self):        
         return len(self.input.verses) == self.amount
 
+    def check(self):
+        return super().check()
+    
+
+class HaikuStructure(Rule):
+    def __init__(self, input: Type[PoemParser]) -> None:
+        super().__init__(input)
+        params = [
+            self.haiku_verse_length(),
+            
+        ]
+        self.params = params
+
+    def haiku_verse_length(self):        
+        expected  = [5,7,5]
+        verses_length = self.input.parsed.get(0).get('syllables')
+        return expected == verses_length
+   
+    
     def check(self):
         return super().check()

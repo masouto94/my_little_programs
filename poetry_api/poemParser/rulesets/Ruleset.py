@@ -41,3 +41,18 @@ class FreePoemRules(Ruleset):
 
     def check_rules(self):
         return super().check_rules()
+
+class HaikuRules(Ruleset):
+    def __init__(self, input: Type[PoemParser]) -> None:
+        self.params = [
+            TotalVerses(input,3),
+            HaikuStructure(input)
+        ]
+        super().__init__(input,self.params)
+        
+
+    def check_rules(self):
+        return super().check_rules()
+    
+
+

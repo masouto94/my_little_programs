@@ -31,6 +31,12 @@ class Free(Poetry):
         self.name="Free"
         self.rules = FreePoemRules(self.text)
 
+class Haiku(Poetry):
+    def __init__(self, text: Type[PoemParser]) -> None:
+        super().__init__(text)
+        self.name="Haiku"
+        self.rules = HaikuRules(self.text)
+
 class Poem():
     def __init__(self, author, title, body: Type[Poetry]) -> None:
         self.author = author 
