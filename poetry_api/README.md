@@ -12,20 +12,27 @@ This repo is divided in two modules:
 This framework is targeted to students or teachers of poetry in spanish and general public that just want to organize or study their collection in a different way. 
 
 ### A journey from art to data
-The first question is...how can we compute something as complex as a poem? In order to do that, we must take the original poem string and identify its basic structure:
+The first question is...how can we compute something as complex as a poem? In order to do that, we must take the original poem and represent it as an object. We will have a `title`, `author`, `type`, and `text`. After that, we can:
 
-1) Get the title, author, type, and full text
+1) Access the title, author, type, and full text
 2) Count the strophes by searching double line breaks (`\n\n`)
 3) Count the verses as every single line break (`\n`)
 4) Calculate the syllables of each verse (*Credits to Nebur for his amazing work creating [pyverse package](https://github.com/neburnodrog/Pyverse)*)
 
-To do all this, we use the `PoemParser` class: We just need to create an instance of `PoemParser` with the poem string
+To do all this, we use the `PoemParser` class: We just need to create an instance of `PoemParser` with the poem string. This object will let us access all these items easily
 
 ### About poetry beyond structure
-After parsing the original poem string, we should analyze what kind of poem it is. Different schools and traditions have, sometimes, very rigid rules of rhyme, metric, or structure. For this we can use the `Poetry` class ...
+After parsing the original poem string, we should analyze what kind of poem it is. Different schools and traditions have, sometimes, very rigid rules of rhyme, metric, or structure. For this we can use the `Poetry` class and its derivates.
+
+To build a `Poetry` object we need the previously parsed text, and a set of rules that represent a given structure. For this we have the `Ruleset` class. We create different rulesets by arranging specific `Rule` objects. 
+Rules can be the max length of verses, the total amount of verses, the metric of certain strophe, etc.
+
+So, to summarize, we can create different `Poetry` objects, such as `Sonnet` or `Haiku` with their corresponding parsed text and their ruleset or even `Free` that allows anything 
+
 ### The `Poem` object
-`Poem` objects are built the final object type to handle poems. You can access the `title`, `author`, and `body` (instance of `Poetry`) and its methods.
-By accessing the `parsed` attribute you will have access to the `PoemParser` methods and properties.
+`Poem` objects are built with the `title`, `author`, and `body` (instance of `Poetry`). They are the class to properly access all the previously described attributes and methods.
+
+They are also the object that will be saved in the database through the `PoemEncoder`
 
 
 ## To install locally
@@ -33,7 +40,7 @@ By accessing the `parsed` attribute you will have access to the `PoemParser` met
 Create a virtual env with `venv` with version `3.11.3`
 
 Example
-```
+```bash
 // Windows
 py -3.11.3 -m venv venv
 source venv/Scripts/activate
