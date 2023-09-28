@@ -9,9 +9,9 @@ from database.DatabaseConnector import *
 
 
 class Poetry(ABC):
-    def __init__(self, text: str, rules: Type[Ruleset] = None) -> None:
+    def __init__(self, text: Type[PoemParser], rules: Type[Ruleset] = None) -> None:
         self.name = ""
-        self.text = PoemParser(text)
+        self.text = text
         self.raw_text = self.text.initial
         self.rules = rules
 
