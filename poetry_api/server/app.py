@@ -34,12 +34,16 @@ def get_poem(id):
         return render_template('not_found.html.jinja')
     return render_template('poem.html.jinja', poem=to_get, single=True)
 
-@app.route('/randomPoem/',  methods=['GET'])
+@app.route('/randomPoem',  methods=['GET', 'POST'])
 def get_random_poem():
     poems_amount = len(allPoems.keys())
     rand = random.choice(range(poems_amount))
     
     return render_template('poem.html.jinja', poem=allPoems.get(rand), single=True)
+
+@app.route('/allPoems/',  methods=['GET'])
+def get_all_poems():
+    return render_template('poem_container.html.jinja', poems=allPoems.items(), author='All')
 
 @app.route('/poemsByAuthor/',  methods=['POST'])
 def get_poems_by_author():

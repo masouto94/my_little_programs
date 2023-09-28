@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <link rel="stylesheet" href="{{ url_for('static', filename='main_styles.css') }}">
-<title>Index Page</title>
+<title>Poems getter</title>
 
 <body class="first-color">
   <h1 class="titles">Poems getter</h1>
@@ -10,7 +10,10 @@
   <div class="mainContainer">
 
     <div class="formContainer">
-      <form action="/randomPoem/" method="GET">
+      <h2><a href="/allPoems">Show all poems</a></h2>
+    </div>
+    <div class="formContainer">
+      <form action="/randomPoem" method="POST">
         <div>
           <h2>Get random poem
             <button class="button" type="submit">Search</button> 

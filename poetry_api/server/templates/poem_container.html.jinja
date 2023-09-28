@@ -10,7 +10,11 @@
 </head>
 
 <body class="first-color">
-    <h1>Listing poems for: {{author}}</h1>
+    {% if author == 'All' %}
+        <h1>Listing all poems</h1>
+    {% else %}
+        <h1>Listing poems for: {{author}}</h1>
+    {% endif %}
     {% for i,poem in poems %}
     {% include "poem.html.jinja" %}
     {% endfor %}
