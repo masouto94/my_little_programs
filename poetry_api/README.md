@@ -37,16 +37,16 @@ They are also the object that will be saved in the database through the `PoemEnc
 
 ## To install locally
 
-Create a virtual env with `venv` with version `3.11.3`
+Create a virtual env with `venv`. Version `3.11` is preferred but it also works with `3.8`   
 
 Example
 ```bash
 // Windows
-py -3.11.3 -m venv venv
+py -3.11 -m venv venv
 source venv/Scripts/activate
 
 // Linux
-python3 -3.11.3 -m venv venv
+python3.11 -m venv venv
 source venv/bin/activate
 
 ```
