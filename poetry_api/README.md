@@ -1,6 +1,7 @@
 # Poems for everyone
 
 ## Overview
+`poetry_api` is a full-stack web app aimed to provide an interface to visualize and analyze poems. 
 This repo is divided in two modules: 
     
 - `poemParser`: Has the models and local database for all poems. New poems can be saved by executing the corresponding lines in `main.py`
