@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='main_styles.css') }}">
+<title>Poems getter</title>
+
+<body class="first-color">
+  <h1 class="titles">Poems getter</h1>
+  <header>Welcome to our app. We currently have {{current}} poems available!</header>
+  <hr>
+  <hr>
+  <div class="mainContainer">
+
+    <div class="formContainer">
+      <h2><a href="/allPoems">Show all poems</a></h2>
+    </div>
+    <div class="formContainer">
+      <form action="/randomPoem" method="POST">
+        <div>
+          <h2>Get random poem
+            <button class="button" type="submit">Search</button> 
+          </h2>
+        </div>
+      </form>
+    </div>
+
+    <div class="formContainer">
+      <form action="/poemsByAuthor/" method="POST">
+        <div>
+          <h2>Get poems by author</h2>
+          <p>You can also enter the author name</p>
+          <div class="searchBar">
+
+            <select class="second-color" name="select_author">
+              {% for author in authors %}
+              <option class="second-color" value="{{author}}">{{author}}</option>
+              {% endfor %}
+            </select>
+            <button class="button" type="submit">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="formContainer">
+      <form action="/poemsByType/" method="POST">
+        <div>
+          <h2>Get poems by type</h2>
+          <p>Or by type</p>
+          <div class="searchBar">
+            <select class="second-color" name="select_type">
+              {% for type in types %}
+              <option class="second-color" value="{{type}}">{{type}}</option>
+              {% endfor %}
+            </select>
+            <button class="button" type="submit">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+<script src="{{ url_for('static', filename='validator.js') }}"></script>
