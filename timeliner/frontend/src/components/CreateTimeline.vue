@@ -1,6 +1,11 @@
 <template>
   <div class="timeline">
     <h1>{{ timelineData }}</h1>
+    <form  action="/dataentry" @submit="sendData" method="post">
+      Name<input type="text" label="name" name="name" v-model="dataentry.name">
+      Department<input type="text" label="department" name="department" v-model="dataentry.department">
+      <input type="submit" value="SEND">
+    </form>
   </div>
 </template>
 
@@ -16,12 +21,14 @@ export default {
             dataentry: {
                 name: "",
                 department: ""
-            },
+            }
         };
     },
     methods: {
-        submit: function () {
-            const path = 'http://127.0.0.1:5000/dataentry'
+        sendData: function (e) {
+          e.preventDefault()
+            const path = `http://127.0.0.1:5000/dataentry`
+            console.log(path)
             axios.post(path, {
                 name: this.dataentry.name,
                 department: this.dataentry.department,
