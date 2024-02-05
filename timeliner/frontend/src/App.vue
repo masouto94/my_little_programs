@@ -1,10 +1,10 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <CreateTimeline timelineData="pepep"/>
+  <CreateTimeline/>
 </template>
 
 <script>
-import CreateTimeline from './components/CreateTimeline.vue'
+import CreateTimeline from './views/CreateTimeline.vue'
 
 export default {
   name: 'App',

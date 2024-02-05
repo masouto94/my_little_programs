@@ -7,6 +7,9 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "engines": {
+    "node": "18.17.0"
+  },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "axios": "^1.6.7",

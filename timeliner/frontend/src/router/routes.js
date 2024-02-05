@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import CreateTimeline from '../components/CreateTimeline.vue';
+import CreateTimeline from '../views/CreateTimeline.vue';
 import HelloWorld from '../components/HelloWorld.vue'
 export const router = createRouter({
     history: createWebHistory(),
