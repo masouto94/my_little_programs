@@ -1,7 +1,12 @@
 <template>
-    <form  action="/dataentry" @submit="sendData" method="post">
-        <EventInput v-for="i in 5" :key="i" @input="(e) => check(e,i-1)"/>
-      </form>
+    <form action="/dataentry"  method="post">
+
+        <div class="previous" v-for="(applicant, counter) in inputList" v-bind:key="counter">
+            <EventInput @input="(e) => check(e, counter)" />
+            <button @click="(e) => deleteInput(e,counter)">-</button>
+            <button @click="addInput">+</button>
+        </div>
+    </form>
 </template>
 
 <script>
@@ -9,19 +14,23 @@ import axios from 'axios'
 import EventInput from './EventInput.vue'
 export default {
     name: 'EventForm',
-    components:{
+    components: {
         EventInput
     },
     data() {
         return {
-            timelineData:{
-                
-            }
-        } 
+            
+            inputList: [
+                {
+                    date: "",
+                    episode: ""
+                }
+            ]
+        }
     },
     methods: {
         sendData: function (e) {
-          e.preventDefault()
+            e.preventDefault()
             const path = `http://127.0.0.1:5000/dataentry`
             console.log(path)
             axios.post(path, {
@@ -32,29 +41,39 @@ export default {
                 .then(response => {
                     console.log(response);
                 })
-                .catch(err => { console.log(err);
+                .catch(err => {
+                    console.log(err);
                 });
         },
-        check: function(e,index){
-            if(!this.timelineData[index]){
-                this.timelineData[index] = {
-                        [e.target["name"]]: e.target.value
-                    }
-            }
-            this.timelineData[index][e.target["name"]] = e.target.value
-            console.log(JSON.stringify(this.timelineData))
+        check: function (e, index) {
+            // if (!this.inputList[index]) {
+            //     this.inputList[index] = {
+            //         [e.target["name"]]: e.target.value
+            //     }
+            // }
+            this.inputList[index][e.target["name"]] = e.target.value
+            console.log(JSON.stringify(this.inputList))
 
+        },
+        addInput(e) {
+            e.preventDefault()
+            this.inputList.push({
+                    date: "",
+                    episode: ""
+                })
+        },
+        deleteInput(e,counter) {
+            e.preventDefault()
+            this.inputList.splice(counter, 1);
         }
     },
     computed: {
     },
     mounted() {
-  }
-        
+    }
+
 
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

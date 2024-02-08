@@ -1,7 +1,7 @@
 <template>
     <div>
-    Fecha<input type="text" label="date" name="date" :value="date">
-    Episodio<input type="text" label="episode" name="episode" :value="episode" >
+    Fecha<input type="text" label="date" name="date" >
+    Episodio<input type="text" label="episode" name="episode" >
 </div>
 </template>
 
@@ -14,8 +14,7 @@ export default {
     data() {
        return{
 
-            date:"",
-            episode:""
+           
 
        }
     },
