@@ -1,7 +1,9 @@
 <template>
     <div>
-    Fecha<input type="text" label="date" name="date" >
-    Episodio<input type="text" label="episode" name="episode" >
+    Fecha<input type="date" label="date" name="date" :value="date">
+    Episodio<input type="text" label="episode" name="episode" :value="episode">
+    <button @click="(e) => deleteInput(e,counter)">-</button>
+    <button @click="addInput">+</button>
 </div>
 </template>
 
@@ -9,8 +11,14 @@
 export default {
     name: 'EventInput',
     props:{
-        index: Number
+        date:String,
+        episode:String
     },
+    inject:[
+        'addInput',
+        'deleteInput'
+
+    ],
     data() {
        return{
 

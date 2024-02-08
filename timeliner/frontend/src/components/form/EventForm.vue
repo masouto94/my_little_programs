@@ -1,12 +1,21 @@
 <template>
-    <form action="/dataentry"  method="post">
+    <form action="/dataentry" @submit.stop.prevent="sendData"  method="post">
 
-        <div class="previous" v-for="(applicant, counter) in inputList" v-bind:key="counter">
-            <EventInput @input="(e) => check(e, counter)" />
-            <button @click="(e) => deleteInput(e,counter)">-</button>
-            <button @click="addInput">+</button>
+        <div class="previous" v-for="(data, counter) in inputList" v-bind:key="counter">
+            <EventInput 
+            @input="(e) => updateInputData(e, counter)"
+            :date="inputList[counter].date"
+            :episode="inputList[counter].episode" 
+            />
         </div>
+        <input type="submit" value="MANDAR">
     </form>
+    <div>
+        <button type="reset" @click="resetForm">RESET</button>
+    </div>
+    <div id="chartContainer">
+
+    </div>
 </template>
 
 <script>
@@ -29,30 +38,24 @@ export default {
         }
     },
     methods: {
-        sendData: function (e) {
-            e.preventDefault()
+        sendData: async function  (e) {
+            e
+            // alert(JSON.stringify(this.inputList))
             const path = `http://127.0.0.1:5000/dataentry`
-            console.log(path)
-            axios.post(path, {
-                name: this.timeLineData.dates,
-                department: this.timeLineData.episodes,
-            }
-            )
-                .then(response => {
-                    console.log(response);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+            const data = await axios.post(path, this.inputList)
+            .then(response => {
+                return response.data
+            })
+            .catch(err => {
+                console.log(err);
+            });
+            const container = document.querySelector("#chartContainer")
+            container.innerHTML  = data
         },
-        check: function (e, index) {
-            // if (!this.inputList[index]) {
-            //     this.inputList[index] = {
-            //         [e.target["name"]]: e.target.value
-            //     }
-            // }
+        updateInputData: function (e, index) {
             this.inputList[index][e.target["name"]] = e.target.value
-            console.log(JSON.stringify(this.inputList))
+            localStorage.setItem('timelineData',JSON.stringify(this.inputList))
+            console.log(localStorage.getItem('timelineData'))
 
         },
         addInput(e) {
@@ -65,15 +68,40 @@ export default {
         deleteInput(e,counter) {
             e.preventDefault()
             this.inputList.splice(counter, 1);
+        },
+        resetForm(e) {
+            e.preventDefault()
+            this.inputList = [
+                {
+                    date: "",
+                    episode: ""
+                }
+            ]
+            localStorage.clear()
         }
     },
     computed: {
     },
     mounted() {
+        if(localStorage.getItem('timelineData')){
+            this.inputList = JSON.parse(localStorage.getItem('timelineData'))
+        }
+    },
+    provide(){
+        return{
+            addInput:this.addInput,
+            deleteInput:this.deleteInput
+
+        }
     }
 
 
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+#chartContainer {
+    display: flex;
+    justify-content: center;
+}
+</style>
