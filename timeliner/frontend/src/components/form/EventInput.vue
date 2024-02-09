@@ -1,6 +1,7 @@
 <template>
     <div>
-    Fecha<input type="date" label="date" name="date" :value="date">
+    Fecha inicio<input type="date" label="from_date" name="from_date" :value="from_date">
+    Fecha fin<input type="date" label="to_date" name="to_date" :value="to_date">
     Episodio<input type="text" label="episode" name="episode" :value="episode">
     <button @click="(e) => deleteInput(e,counter)">-</button>
     <button @click="addInput">+</button>
@@ -11,7 +12,8 @@
 export default {
     name: 'EventInput',
     props:{
-        date:String,
+        from_date:String,
+        to_date:String,
         episode:String
     },
     inject:[
@@ -21,8 +23,6 @@ export default {
     ],
     data() {
        return{
-
-           
 
        }
     },

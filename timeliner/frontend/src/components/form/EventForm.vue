@@ -1,10 +1,11 @@
 <template>
-    <form action="/dataentry" @submit.stop.prevent="sendData"  method="post">
+    <form action="/createTimeline" @submit.stop.prevent="sendData"  method="post">
 
         <div class="previous" v-for="(data, counter) in inputList" v-bind:key="counter">
             <EventInput 
-            @input="(e) => updateInputData(e, counter)"
-            :date="inputList[counter].date"
+            @change="(e) => updateInputData(e, counter)"
+            :from_date="inputList[counter].from_date"
+            :to_date="inputList[counter].to_date || inputList[counter].from_date"
             :episode="inputList[counter].episode" 
             />
         </div>
@@ -13,7 +14,7 @@
     <div>
         <button type="reset" @click="resetForm">RESET</button>
     </div>
-    <div id="chartContainer">
+    <div class="table-responsive-md" id="chartContainer">
 
     </div>
 </template>
@@ -31,7 +32,8 @@ export default {
             
             inputList: [
                 {
-                    date: "",
+                    from_date: "",
+                    to_date: "",
                     episode: ""
                 }
             ]
@@ -41,7 +43,7 @@ export default {
         sendData: async function  (e) {
             e
             // alert(JSON.stringify(this.inputList))
-            const path = `http://127.0.0.1:5000/dataentry`
+            const path = `http://127.0.0.1:5000/createTimeline`
             const data = await axios.post(path, this.inputList)
             .then(response => {
                 return response.data
@@ -49,11 +51,16 @@ export default {
             .catch(err => {
                 console.log(err);
             });
+            console.log(localStorage.getItem('timelineData'))
+
             const container = document.querySelector("#chartContainer")
             container.innerHTML  = data
         },
         updateInputData: function (e, index) {
             this.inputList[index][e.target["name"]] = e.target.value
+            if(!this.inputList[index]["to_date"]){
+                this.inputList[index]["to_date"] = e.target.value
+            }
             localStorage.setItem('timelineData',JSON.stringify(this.inputList))
             console.log(localStorage.getItem('timelineData'))
 
@@ -61,7 +68,8 @@ export default {
         addInput(e) {
             e.preventDefault()
             this.inputList.push({
-                    date: "",
+                    from_date: "",
+                    to_date:"",
                     episode: ""
                 })
         },
@@ -73,7 +81,8 @@ export default {
             e.preventDefault()
             this.inputList = [
                 {
-                    date: "",
+                    from_date: "",
+                    to_date:"",
                     episode: ""
                 }
             ]
@@ -103,5 +112,6 @@ export default {
 #chartContainer {
     display: flex;
     justify-content: center;
+
 }
 </style>

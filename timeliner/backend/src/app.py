@@ -8,7 +8,7 @@ CORS(app,
 	 CORS_SUPPORTS_CREDENTIALS = True)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-@app.route("/dataentry", methods=["POST","GET"])
+@app.route("/createTimeline", methods=["POST","GET"])
 def submitData():    
 	if request.method == "POST":     
 		new=create(request.get_json())
