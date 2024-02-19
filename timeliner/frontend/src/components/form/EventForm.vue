@@ -43,7 +43,7 @@ export default {
         sendData: async function  (e) {
             e
             // alert(JSON.stringify(this.inputList))
-            const path = `http://127.0.0.1:5000/createTimeline`
+            const path = `${process.env.VUE_APP_API}/createTimeline`
             const data = await axios.post(path, this.inputList)
             .then(response => {
                 return response.data
@@ -86,6 +86,8 @@ export default {
                     episode: ""
                 }
             ]
+            const container = document.querySelector("#chartContainer")
+            container.innerHTML  = ""
             localStorage.clear()
         }
     },
@@ -108,10 +110,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style >
 #chartContainer {
     display: flex;
     justify-content: center;
 
+}
+.dataframe {
+  max-width: 50%;
 }
 </style>
