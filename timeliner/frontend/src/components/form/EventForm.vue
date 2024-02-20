@@ -1,21 +1,22 @@
 <template>
-    <form action="/createTimeline" @submit.stop.prevent="sendData"  method="post">
+    <form>
 
         <div class="previous" v-for="(data, counter) in inputList" v-bind:key="counter">
-            <EventInput 
-            @change="(e) => updateInputData(e, counter)"
-            :from_date="inputList[counter].from_date"
-            :to_date="inputList[counter].to_date || inputList[counter].from_date"
-            :episode="inputList[counter].episode" 
-            />
+            <EventInput @change="(e) => updateInputData(e, counter)" :from_date="inputList[counter].from_date"
+                :to_date="inputList[counter].to_date || inputList[counter].from_date"
+                :episode="inputList[counter].episode" />
         </div>
-        <input type="submit" value="MANDAR">
     </form>
     <div>
+        <button type="submit" @click="createTable">Crear tabla</button>
+        <button type="submit" @click="createChart">Crear chart</button>
         <button type="reset" @click="resetForm">RESET</button>
     </div>
-    <div class="table-responsive-md" id="chartContainer">
+    <div class="table-responsive-md container" id="tableContainer">
 
+    </div>
+    <div class="container" id="chartContainer">
+        <iframe src="" frameborder="0"></iframe>
     </div>
 </template>
 
@@ -29,7 +30,7 @@ export default {
     },
     data() {
         return {
-            
+
             inputList: [
                 {
                     from_date: "",
@@ -40,40 +41,52 @@ export default {
         }
     },
     methods: {
-        sendData: async function  (e) {
-            e
-            // alert(JSON.stringify(this.inputList))
-            const path = `${process.env.VUE_APP_API}/createTimeline`
+        createTable: async function () {
+            
+            const path = `${process.env.VUE_APP_API}/createTimelineTable`
             const data = await axios.post(path, this.inputList)
-            .then(response => {
-                return response.data
-            })
-            .catch(err => {
-                console.log(err);
-            });
-            console.log(localStorage.getItem('timelineData'))
+                .then(response => {
+                    return response.data
+                })
+                .catch(err => {
+                    console.log(err);
+                });
 
-            const container = document.querySelector("#chartContainer")
-            container.innerHTML  = data
+            const container = document.querySelector("#tableContainer")
+            container.innerHTML = data
+        },
+        createChart: async function () {
+            const path = `${process.env.VUE_APP_API}/createTimelineChart`
+            const data = await axios.post(path, this.inputList)
+                .then(response => {
+                    console.log(response)
+                    return response.data
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+            const container = document.querySelector("#chartContainer > iframe")
+            container.setAttribute('src',data)
         },
         updateInputData: function (e, index) {
             this.inputList[index][e.target["name"]] = e.target.value
-            if(!this.inputList[index]["to_date"]){
+            if (!this.inputList[index]["to_date"]) {
                 this.inputList[index]["to_date"] = e.target.value
             }
-            localStorage.setItem('timelineData',JSON.stringify(this.inputList))
+            localStorage.setItem('timelineData', JSON.stringify(this.inputList))
             console.log(localStorage.getItem('timelineData'))
 
         },
         addInput(e) {
             e.preventDefault()
             this.inputList.push({
-                    from_date: "",
-                    to_date:"",
-                    episode: ""
-                })
+                from_date: "",
+                to_date: "",
+                episode: ""
+            })
         },
-        deleteInput(e,counter) {
+        deleteInput(e, counter) {
             e.preventDefault()
             this.inputList.splice(counter, 1);
         },
@@ -82,26 +95,26 @@ export default {
             this.inputList = [
                 {
                     from_date: "",
-                    to_date:"",
+                    to_date: "",
                     episode: ""
                 }
             ]
-            const container = document.querySelector("#chartContainer")
-            container.innerHTML  = ""
+            document.querySelector("#tableContainer").innerHTML = ""
+            document.querySelector("#chartContainer > iframe").src = ""
             localStorage.clear()
         }
     },
     computed: {
     },
     mounted() {
-        if(localStorage.getItem('timelineData')){
+        if (localStorage.getItem('timelineData')) {
             this.inputList = JSON.parse(localStorage.getItem('timelineData'))
         }
     },
-    provide(){
-        return{
-            addInput:this.addInput,
-            deleteInput:this.deleteInput
+    provide() {
+        return {
+            addInput: this.addInput,
+            deleteInput: this.deleteInput
 
         }
     }
@@ -111,12 +124,13 @@ export default {
 </script>
 
 <style >
-#chartContainer {
+.container {
     display: flex;
     justify-content: center;
 
 }
+
 .dataframe {
-  max-width: 50%;
+    max-width: 50%;
 }
 </style>
