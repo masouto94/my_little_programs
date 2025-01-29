@@ -399,3 +399,4 @@ FodyWeavers.xsd
 
 **.vscode/
 poetry_api/poetry
+**.venv/
