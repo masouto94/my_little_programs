@@ -1,0 +1,11 @@
+{%load static%}
+<link rel="stylesheet" href="{% static 'poems/style.css'%}">
+    <ul>
+        <li>{{ author.name }}</li>
+        <ul>
+        <li>{{ author.country }}</li>
+        <li>{{ author.date_of_birth }}</li>
+        {%if author.date_of_death %}
+        <li>{{ author.date_of_death }}</li>
+        {%endif%}
+    </ul>

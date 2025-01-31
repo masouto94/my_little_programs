@@ -21,4 +21,5 @@ from poems import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('authors/', views.AuthorsView.as_view(), name="authors"),
+    path('author/<int:author_id>/', views.author, name="author"),
 ]

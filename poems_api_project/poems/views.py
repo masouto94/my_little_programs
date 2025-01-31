@@ -9,10 +9,11 @@ class AuthorsView(generic.ListView):
 
     def get_queryset(self):
         return Author.objects.all()
+    
 
-def authors(request):
-    authors = Author.objects.all()
+def author(request, author_id):
+    author = get_object_or_404(Author,pk=author_id)
     context = {
-        "authors_list": authors
+        "author": author
     }
-    return render(request,"poems/authors.html",context)
+    return render(request,"poems/author_detail.html",context)

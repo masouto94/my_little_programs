@@ -10,6 +10,7 @@ admin.site.register(Poem)
 
 class AuthorAdmin(admin.ModelAdmin):
     list_display = [
+            "id",
             "name",
             "country",
             "date_of_birth",
