@@ -1,10 +1,10 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import  Author,VerseMetric,FreePoem,Poem
+from .models import  Author,VerseMetric,NoRule,FreePoem,Poem
 
-# admin.site.register(Author)
 admin.site.register(VerseMetric)
+admin.site.register(NoRule)
 admin.site.register(FreePoem)
 admin.site.register(Poem)
 

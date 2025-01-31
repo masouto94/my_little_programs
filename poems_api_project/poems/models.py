@@ -27,22 +27,32 @@ class Rule(models.Model):
     def assert_rule(self, text):
         pass
 
+    def __str__(self):
+        return self.name
+
 class VerseMetric(Rule):
-    size = models.IntegerField
+    size = models.PositiveSmallIntegerField(default=0)
     
-    def assert_rule(self, text):
+    def assert_rule(self, text:str):
         return all([length[1] == self.size for length in text.get_syllables()])
 
+class NoRule(Rule):
+    def assert_rule(self, text:str):
+        return True
+    
 class PoemType(models.Model):
     name = models.CharField(max_length=50)
     rules = models.ManyToManyField(Rule)
 
-    def check_rules(self, text:str, strict:bool) -> bool:
+    def check_rules(self, text:str, strict:bool = True ) -> bool:
         pass
 
+    def __str__(self):
+        return self.name 
+    
 class FreePoem(PoemType):
 
-    def check_rules(self, text:str, strict:bool = True) -> bool:
+    def check_rules(self, text:str, strict:bool) -> bool:
         return True
     
 class Poem(models.Model):
