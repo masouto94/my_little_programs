@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from poems import views
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('authors/', views.AuthorsView.as_view(), name="authors"),
 ]

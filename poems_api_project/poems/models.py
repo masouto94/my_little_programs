@@ -3,12 +3,13 @@ from django.utils import timezone
 from datetime import timedelta
 from django.contrib import admin
 
+from pyverse import Pyverse
 # Create your models here.
 class Author(models.Model):
     name = models.CharField(max_length=200)
     country = models.CharField(max_length=50)
     date_of_birth = models.DateField()
-    date_of_death = models.DateField(null=True)
+    date_of_death = models.DateField(null=True,blank=True)
     
     @admin.display(
         boolean = True,
@@ -21,11 +22,29 @@ class Author(models.Model):
 
 class Rule(models.Model):
     #Allow verse metric, strophe metric, total verses, order. maybe specific models to be added to poemType?
-    pass
-class PoemType(models.Model):
-    #Have name and rules
-    pass
+    name = models.CharField(max_length=50)
 
+    def assert_rule(self, text):
+        pass
+
+class VerseMetric(Rule):
+    size = models.IntegerField
+    
+    def assert_rule(self, text):
+        return all([length[1] == self.size for length in text.get_syllables()])
+
+class PoemType(models.Model):
+    name = models.CharField(max_length=50)
+    rules = models.ManyToManyField(Rule)
+
+    def check_rules(self, text:str, strict:bool) -> bool:
+        pass
+
+class FreePoem(PoemType):
+
+    def check_rules(self, text:str, strict:bool = True) -> bool:
+        return True
+    
 class Poem(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(Author,on_delete=models.CASCADE)
@@ -35,47 +54,16 @@ class Poem(models.Model):
     def __str__(self):
         return self.title
     
-    # def get_strophes(self, whole_poem):
-    #     return [strophe for strophe in whole_poem.split("\n\n")]
-
-    # def get_verses(self, strophe):
-    #     return [verse for verse in strophe.split("\n")]
-
-    # def parse_all(self,poem):
-    #     strophes = self.get_strophes(poem)
-    #     verses=[]
-    #     parsed={}
-    #     for i, strophe in enumerate(strophes):
-    #         parsed[i] = {"verses":self.get_verses(strophe)}
-    #         verses.append(parsed[i].get("verses"))
-    #         parsed[i]["syllables"] = [Pyverse(verse).count for verse in parsed[i]["verses"]]
-    #     self.strophes = verses
-    #     self.verses = [verse for verses in self.strophes for verse in verses]
-    #     return parsed
+    def is_pure(self):
+        ruleset = [result for result in self.poem_type.check_rules(text = self ,strict=True)]
+        return all(ruleset)
     
-    # def get_syllable_count_by_strophe(self):
-    #     return {key:val["syllables"] for key,val in self.parsed.items() }
-    
-    # def get_verse(self,index):
-    #     try:
-    #         if len(index) != 2:
-    #             raise IndexError("Index must be int or an array of size 2")
-    #         return self.strophes[index[0]][index[1]]
-    #     except TypeError:
-    #         return self.verses[index]
-    # def check_metric(self):
-    #     result=[]
-    #     for counts in self.get_syllable_count_by_strophe().values():
-    #         result.append(all([i == 8 for i in counts ]))
-    #     return all(result)
+    def get_strophes(self):
+        return [strophe for strophe in self.text.split("\n\n")]
 
-    # def check_structure(self):
-    #     result=[]
-    #     for strophe, counts in self.get_syllable_count_by_strophe().items():
-    #         if strophe in (0,1):
-    #             result.append(len(counts) == 4)
-    #         elif strophe in (2,3):
-    #             result.append(len(counts) == 3)
-    #         else:
-    #             result.append(False)
-    #     return all(result)
+    def get_verses(self):
+        return [verse for verse in self.text.split("\n")]
+
+    def get_syllables(self):
+        return [(index,Pyverse(verse).count,) for index,verse in enumerate(self.get_verses())]
+    
