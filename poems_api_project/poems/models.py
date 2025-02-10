@@ -15,7 +15,7 @@ class Author(models.Model):
         boolean = True,
         ordering="name"
     )
-    
+
     def __str__(self):
         return self.name
 
@@ -63,6 +63,9 @@ class Poem(models.Model):
     
     def __str__(self):
         return self.title
+    
+    def get_poem_types(self):
+        return ",".join([p.name for p in self.poem_type.all()])
     
     def is_pure(self):
         ruleset = [result for result in self.poem_type.check_rules(text = self ,strict=True)]

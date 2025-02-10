@@ -20,6 +20,8 @@ from django.urls import path
 from poems import views
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.HomeView.as_view(), name="home"),
     path('authors/', views.AuthorsView.as_view(), name="authors"),
     path('author/<int:author_id>/', views.author, name="author"),
+    path('poems/', views.PoemsView.as_view(), name="poems"),
 ]

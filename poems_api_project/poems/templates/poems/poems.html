@@ -1,0 +1,10 @@
+{% load i18n %}
+<!-- {% get_current_language as LANGUAGE_CODE %} -->
+{% for item in poems_list %}
+    <h1>{{item.title}}</h1>
+    <h2>{{item.author}}</h2>
+    <h3>Type {{item.get_poem_types}}</h3>
+    <article style="white-space: pre-line">
+        {{item.text}}
+    </article>
+{% endfor %}
