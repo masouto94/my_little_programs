@@ -1,18 +1,13 @@
 {%load static%}
+{%load i18n%}
 <link rel="stylesheet" href="{% static 'poems/style.css'%}">
 {% if authors_list %}
     <ul>
     {% for author in authors_list %}
-        <li>{{ author.name }}</li>
-        <ul>
-        <li>{{ author.country }}</li>
-        <li>{{ author.date_of_birth }}</li>
-        {%if author.date_of_death %}
-        <li>{{ author.date_of_death }}</li>
-        {%endif%}
-        </ul>
-    {% endfor %}
+        <li><a href={% url 'author' author_id=author.id %}>{{ author.name }}</a></li>
+       
+        {% endfor %}
     </ul>
 {% else %}
-    <p>No polls are available.</p>
+    <p>{% translate "No authors are available." %}</p>
 {% endif %}

@@ -6,7 +6,6 @@ from .models import  Author,VerseMetric,NoRule,FreePoem,Poem
 admin.site.register(VerseMetric)
 admin.site.register(NoRule)
 admin.site.register(FreePoem)
-admin.site.register(Poem)
 
 class AuthorAdmin(admin.ModelAdmin):
     list_display = [
@@ -26,4 +25,23 @@ class AuthorAdmin(admin.ModelAdmin):
             (None, {"fields": ["name"]}),
             ("Date information", {"fields": ["date_of_birth"]}),
         ]
+    
+class PoemAdmin(admin.ModelAdmin):
+    list_display = [
+            "id",
+            "title",
+            "author",
+            "get_poem_types"
+        ]
+    list_filter = [
+            "title",
+            "author",
+            "poem_type"
+        ]
+    search_fields = [
+            "title",
+    ]
+
+    
+admin.site.register(Poem,PoemAdmin) 
 admin.site.register(Author,AuthorAdmin) 

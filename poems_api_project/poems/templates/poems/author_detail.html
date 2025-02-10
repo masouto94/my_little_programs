@@ -8,4 +8,10 @@
         {%if author.date_of_death %}
         <li>{{ author.date_of_death }}</li>
         {%endif%}
+        <ul>
+            {% for poem in poems %}
+                <li>{{poem.title}}</li>
+            {% endfor %}
+
+        </ul>
     </ul>

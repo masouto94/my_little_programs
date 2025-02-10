@@ -1,0 +1,6 @@
+{% load i18n %}
+<!-- {% get_current_language as LANGUAGE_CODE %} -->
+<h1>{%translate "Welcome to the app"%}</h1>
+
+<a href="{% url 'authors' %}">Authors</a>
+<a href="{% url 'poems' %}">Poems</a>
