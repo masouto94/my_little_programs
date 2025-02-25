@@ -1,11 +1,14 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import  Author,VerseMetric,NoRule,FreePoem,Poem
+from .models import  Author,VerseMetric,StropheMetric,NoRule,Poem,PoemType
 
 admin.site.register(VerseMetric)
+admin.site.register(PoemType)
+admin.site.register(StropheMetric)
 admin.site.register(NoRule)
-admin.site.register(FreePoem)
+# admin.site.register(FreePoem)
+# admin.site.register(Sonnet)
 
 class AuthorAdmin(admin.ModelAdmin):
     list_display = [

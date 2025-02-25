@@ -1,10 +1,26 @@
 {% load i18n %}
+{% load static %}
+
+
+<head>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body class="first-color">
+
 <!-- {% get_current_language as LANGUAGE_CODE %} -->
 {% for item in poems_list %}
     <h1>{{item.title}}</h1>
     <h2>{{item.author}}</h2>
     <h3>Type {{item.get_poem_types}}</h3>
     <article style="white-space: pre-line">
-        {{item.text}}
+        {% for strophe in item.get_strophes %}
+            <div class="strophe">
+            {{strophe}}<br>
+            </div>
+        {% endfor %}
     </article>
+    <div>
+        <a href="/">Back</a>
+    </div>
 {% endfor %}
+</body>
