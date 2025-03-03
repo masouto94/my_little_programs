@@ -24,4 +24,6 @@ urlpatterns = [
     path('authors/', views.AuthorsView.as_view(), name="authors"),
     path('author/<int:author_id>/', views.author, name="author"),
     path('poems/', views.PoemsView.as_view(), name="poems"),
+    path("poem/<int:poem_id>/",views.poem, name="poem"),
+    path("api/createPoem/",views.createPoem, name="createPoem"),
 ]

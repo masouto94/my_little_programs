@@ -8,20 +8,18 @@
 <body class="first-color">
 
 <!-- {% get_current_language as LANGUAGE_CODE %} -->
-<div>
-    <a href="{{request.META.HTTP_REFERER}}">Back</a>
-</div>
-{% for item in poems_list %}
-    <h1>{{item.title}}</h1>
-    <h2>{{item.author}}</h2>
-    <h3>Type {{item.get_poem_types}}</h3>
+    <h1>{{poem.title}}</h1>
+    <h2>{{poem.author}}</h2>
+    <h3>Type {{poem.get_poem_types}}</h3>
     <article style="white-space: pre-line">
-        {% for strophe in item.get_strophes %}
+        {% for strophe in poem.get_strophes %}
             <div class="strophe">
             {{strophe}}<br>
             </div>
         {% endfor %}
     </article>
-    <hr>
-{% endfor %}
+    <div>
+        <a href="{{request.META.HTTP_REFERER}}">Back</a>
+        <a href="/">Home</a>
+    </div>
 </body>

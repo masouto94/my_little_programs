@@ -16,7 +16,7 @@ class PoemsView(generic.ListView):
     context_object_name = "poems_list"
 
     def get_queryset(self):
-        return Poem.objects.all()
+        return Poem.objects.all().order_by("author_id")
     
 class HomeView(generic.TemplateView):
     template_name = "poems/home.html"
@@ -29,3 +29,12 @@ def author(request, author_id):
         "poems": Poem.objects.filter(author=author_id)
     }
     return render(request,"poems/author_detail.html",context)
+
+def poem(request,poem_id):
+    poem = get_object_or_404(Poem, pk=poem_id)
+    context = {"poem":poem}
+    return render(request, "poems/poem_detail.html", context)
+
+def createPoem(request):
+    http_method_names = ['post']
+    pass

@@ -1,17 +1,30 @@
-{%load static%}
-<link rel="stylesheet" href="{% static 'poems/style.css'%}">
-    <ul>
-        <li>{{ author.name }}</li>
-        <ul>
-        <li>{{ author.country }}</li>
-        <li>{{ author.date_of_birth }}</li>
-        {%if author.date_of_death %}
-        <li>{{ author.date_of_death }}</li>
-        {%endif%}
+{% load i18n %}
+{% load static %}
+
+
+<head>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body class="first-color">
+
+    <!-- {% get_current_language as LANGUAGE_CODE %} -->
+    <h1 class="author_name">{{ author.name }}</h1>
+    <div class="author_details">
+        <span class="author_country">{{ author.country }}</span>
+        <div class="author_dates">
+            <span class="birth">{{ author.date_of_birth }}</span>
+            {%if author.date_of_death %}
+            <span class="death">{{ author.date_of_death }}</span>
+            {%endif%}
+        </div>
+    </div>
         <ul>
             {% for poem in poems %}
-                <li>{{poem.title}}</li>
+            <li><a href="{% url 'poem' poem.id %}">{{ poem.title }}</a></li>
             {% endfor %}
-
         </ul>
-    </ul>
+    <div>
+        <a href="{{request.META.HTTP_REFERER}}">Back</a>
+        <a href="/">Home</a>
+    </div>
+</body>
